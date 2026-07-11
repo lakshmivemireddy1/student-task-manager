@@ -14,17 +14,22 @@ export default function Home() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [search, setSearch] = useState("");
-
-  async function loadTasks() {
+async function loadTasks() {
+  try {
     const res = await fetch("/api/tasks");
+
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`);
+    }
+
     const data = await res.json();
     setTasks(data);
+  } catch (error) {
+    console.error("Error loading tasks:", error);
+    setTasks([]);
   }
-
-  useEffect(() => {
-    loadTasks();
-  }, []);
-
+}
+  
   async function addTask(e: React.FormEvent) {
     e.preventDefault();
 
