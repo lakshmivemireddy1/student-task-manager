@@ -57,17 +57,21 @@ async function loadTasks() {
 }
 
   return (
-    <main className="max-w-4xl mx-auto p-10">
-      <h1 className="text-3xl font-bold mb-6">Student Task Manager</h1>
+    <main className="min-h-screen bg-slate-100 py-10">
+  <div className="max-w-4xl mx-auto px-6">
+      <h1 className="text-5xl font-extrabold text-center text-indigo-700 mb-8">Student Task Manager</h1>
 <input
-  className="border p-2 w-full mb-5"
+ className="w-full rounded-xl border border-gray-300 bg-white p-3 shadow-sm mb-6 focus:outline-none focus:ring-2 focus:ring-indigo-500"
   placeholder="Search tasks..."
   value={search}
   onChange={(e) => setSearch(e.target.value)}
 />
-      <form onSubmit={addTask} className="space-y-4 mb-8">
+      <form
+  onSubmit={addTask}
+  className="bg-white rounded-2xl shadow-lg p-6 space-y-4 mb-8"
+>
         <input
-          className="border p-2 w-full"
+          className="w-full rounded-xl border border-gray-300 p-3 focus:ring-2 focus:ring-indigo-500 outline-none"
           placeholder="Task title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -75,14 +79,14 @@ async function loadTasks() {
         />
 
         <textarea
-          className="border p-2 w-full"
+         className="w-full rounded-xl border border-gray-300 p-3 focus:ring-2 focus:ring-indigo-500 outline-none"
           placeholder="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
 
         <button
-          className="bg-blue-600 text-white px-4 py-2 rounded"
+          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-xl font-semibold shadow-md transition"
           type="submit"
         >
           Add Task
@@ -99,10 +103,10 @@ async function loadTasks() {
   .map((task) => (
           <div
   key={task.id}
-  className="border rounded-xl shadow-md p-5 mb-4 bg-white"
+  className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 mb-6"
 >
             <input
-  className="border p-2 w-full mb-2"
+  className="w-full rounded-lg border border-gray-300 p-3 mb-3"
   defaultValue={task.title}
   onBlur={async (e) => {
     await fetch(`/api/tasks/${task.id}`, {
@@ -122,7 +126,7 @@ async function loadTasks() {
 />
 
 <textarea
-  className="border p-2 w-full"
+ className="w-full rounded-lg border border-gray-300 p-3"
   defaultValue={task.description ?? ""}
   onBlur={async (e) => {
     await fetch(`/api/tasks/${task.id}`, {
@@ -142,7 +146,7 @@ async function loadTasks() {
 />
            <select
   value={task.status}
-  className="border p-2 mt-2"
+  className="rounded-lg border border-gray-300 p-2 mt-4 bg-white"
   onChange={async (e) => {
     await fetch(`/api/tasks/${task.id}`, {
       method: "PUT",
@@ -165,13 +169,14 @@ async function loadTasks() {
 </select>
             <button
   onClick={() => deleteTask(task.id)}
-  className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+  className="mt-4 bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg transition"
 >
   Delete
 </button>
           </div>
         ))
       )}
+      </div>
     </main>
   );
 }
